@@ -1,5 +1,5 @@
-Priority: High
-Purpose: Instructions for AI coding agents working in the repo.
+**Priority:** High
+**Purpose:** Instructions for AI coding agents working in the repo.
 
 Use it to define:
 ```
