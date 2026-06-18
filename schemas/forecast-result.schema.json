@@ -1,8 +1,165 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ad-spend-cashflow.vercel.app/schemas/forecast-result.schema.json",
   "title": "ForecastResult",
   "type": "object",
-  "properties": {},
-  "required": [],
-  "description": "Scaffold schema. Complete fields in a future step."
+  "additionalProperties": false,
+  "description": "Structured result returned by POST /api/forecast-cash-flow.",
+  "required": [
+    "ok",
+    "endpoint",
+    "inputs",
+    "result"
+  ],
+  "properties": {
+    "ok": {
+      "type": "boolean",
+      "const": true
+    },
+    "endpoint": {
+      "type": "string",
+      "const": "/api/forecast-cash-flow"
+    },
+    "inputs": {
+      "$ref": "cash-flow-input.schema.json"
+    },
+    "result": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "forecast_window_days",
+        "starting_cash",
+        "lowest_cash_day",
+        "lowest_cash_balance",
+        "estimated_cash_gap",
+        "daily_forecast",
+        "recommendation",
+        "summary",
+        "decision_reason",
+        "risk_score",
+        "risk_level",
+        "risk_notes",
+        "assumptions",
+        "next_steps",
+        "disclaimer"
+      ],
+      "properties": {
+        "forecast_window_days": {
+          "type": "integer",
+          "minimum": 7,
+          "maximum": 30
+        },
+        "starting_cash": {
+          "type": "number"
+        },
+        "lowest_cash_day": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "lowest_cash_balance": {
+          "type": "number"
+        },
+        "estimated_cash_gap": {
+          "type": "number",
+          "minimum": 0
+        },
+        "daily_forecast": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "day",
+              "beginning_cash",
+              "ad_spend_outflow",
+              "payout_inflow",
+              "inventory_supplier_outflow",
+              "ending_cash_balance",
+              "notes"
+            ],
+            "properties": {
+              "day": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "beginning_cash": {
+                "type": "number"
+              },
+              "ad_spend_outflow": {
+                "type": "number",
+                "minimum": 0
+              },
+              "payout_inflow": {
+                "type": "number",
+                "minimum": 0
+              },
+              "inventory_supplier_outflow": {
+                "type": "number",
+                "minimum": 0
+              },
+              "ending_cash_balance": {
+                "type": "number"
+              },
+              "notes": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "recommendation": {
+          "type": "string",
+          "enum": [
+            "scale",
+            "hold",
+            "fix",
+            "funding_review"
+          ]
+        },
+        "summary": {
+          "type": "string"
+        },
+        "decision_reason": {
+          "type": "string"
+        },
+        "risk_score": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "risk_level": {
+          "type": "string",
+          "enum": [
+            "low",
+            "medium",
+            "high",
+            "critical"
+          ]
+        },
+        "risk_notes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "assumptions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "next_steps": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "disclaimer": {
+          "type": "string"
+        }
+      }
+    }
+  }
 }

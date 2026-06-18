@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ad-spend-cashflow.vercel.app/schemas/risk-diagnosis-result.schema.json",
+  "title": "RiskDiagnosisResult",
+  "type": "object",
+  "additionalProperties": false,
+  "description": "Structured result returned by POST /api/diagnose-ad-spend-risk.",
+  "required": [
+    "ok",
+    "endpoint",
+    "inputs",
+    "result"
+  ],
+  "properties": {
+    "ok": {
+      "type": "boolean",
+      "const": true
+    },
+    "endpoint": {
+      "type": "string",
+      "const": "/api/diagnose-ad-spend-risk"
+    },
+    "inputs": {
+      "$ref": "cash-flow-input.schema.json"
+    },
+    "result": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "risk_level",
+        "risk_score",
+        "primary_risks",
+        "recommendation",
+        "recommendation_summary",
+        "lowest_cash_day",
+        "lowest_cash_balance",
+        "estimated_cash_gap",
+        "disclaimer"
+      ],
+      "properties": {
+        "risk_level": {
+          "type": "string",
+          "enum": [
+            "low",
+            "medium",
+            "high",
+            "critical"
+          ]
+        },
+        "risk_score": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "primary_risks": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "recommendation": {
+          "type": "string",
+          "enum": [
+            "scale",
+            "hold",
+            "fix",
+            "funding_review"
+          ]
+        },
+        "recommendation_summary": {
+          "type": "string"
+        },
+        "lowest_cash_day": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "lowest_cash_balance": {
+          "type": "number"
+        },
+        "estimated_cash_gap": {
+          "type": "number",
+          "minimum": 0
+        },
+        "disclaimer": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

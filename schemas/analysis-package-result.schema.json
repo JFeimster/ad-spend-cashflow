@@ -1,0 +1,189 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ad-spend-cashflow.vercel.app/schemas/analysis-package-result.schema.json",
+  "title": "AnalysisPackageResult",
+  "type": "object",
+  "additionalProperties": false,
+  "description": "Structured result returned by POST /api/generate-analysis-package.",
+  "required": [
+    "ok",
+    "endpoint",
+    "inputs",
+    "result"
+  ],
+  "properties": {
+    "ok": {
+      "type": "boolean",
+      "const": true
+    },
+    "endpoint": {
+      "type": "string",
+      "const": "/api/generate-analysis-package"
+    },
+    "inputs": {
+      "$ref": "cash-flow-input.schema.json"
+    },
+    "result": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "gpt_prompt",
+        "json_payload",
+        "forecast_snapshot",
+        "next_cta",
+        "disclaimer"
+      ],
+      "properties": {
+        "gpt_prompt": {
+          "type": "string"
+        },
+        "json_payload": {
+          "type": "object",
+          "required": [
+            "schema_version",
+            "tool",
+            "generated_at",
+            "forecast_window_days",
+            "inputs",
+            "requested_outputs",
+            "guardrails",
+            "model_snapshot"
+          ],
+          "additionalProperties": true,
+          "properties": {
+            "schema_version": {
+              "type": "string"
+            },
+            "tool": {
+              "type": "string"
+            },
+            "generated_at": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "forecast_window_days": {
+              "type": "integer"
+            },
+            "inputs": {
+              "$ref": "cash-flow-input.schema.json"
+            },
+            "requested_outputs": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "guardrails": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "model_snapshot": {
+              "type": "object"
+            }
+          }
+        },
+        "forecast_snapshot": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "recommendation",
+            "summary",
+            "lowest_cash_day",
+            "lowest_cash_balance",
+            "estimated_cash_gap",
+            "risk_level",
+            "risk_score"
+          ],
+          "properties": {
+            "recommendation": {
+              "type": "string",
+              "enum": [
+                "scale",
+                "hold",
+                "fix",
+                "funding_review"
+              ]
+            },
+            "summary": {
+              "type": "string"
+            },
+            "lowest_cash_day": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "lowest_cash_balance": {
+              "type": "number"
+            },
+            "estimated_cash_gap": {
+              "type": "number",
+              "minimum": 0
+            },
+            "risk_level": {
+              "type": "string",
+              "enum": [
+                "low",
+                "medium",
+                "high",
+                "critical"
+              ]
+            },
+            "risk_score": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100
+            }
+          }
+        },
+        "next_cta": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "primary",
+            "secondary"
+          ],
+          "properties": {
+            "primary": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "label",
+                "url"
+              ],
+              "properties": {
+                "label": {
+                  "type": "string"
+                },
+                "url": {
+                  "type": "string",
+                  "format": "uri"
+                }
+              }
+            },
+            "secondary": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "label",
+                "url"
+              ],
+              "properties": {
+                "label": {
+                  "type": "string"
+                },
+                "url": {
+                  "type": "string",
+                  "format": "uri"
+                }
+              }
+            }
+          }
+        },
+        "disclaimer": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

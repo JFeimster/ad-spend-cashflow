@@ -1,0 +1,167 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ad-spend-cashflow.vercel.app/schemas/growth-decision-result.schema.json",
+  "title": "GrowthDecisionResult",
+  "type": "object",
+  "additionalProperties": false,
+  "description": "Structured result returned by POST /api/recommend-growth-decision.",
+  "required": [
+    "ok",
+    "endpoint",
+    "inputs",
+    "result"
+  ],
+  "properties": {
+    "ok": {
+      "type": "boolean",
+      "const": true
+    },
+    "endpoint": {
+      "type": "string",
+      "const": "/api/recommend-growth-decision"
+    },
+    "inputs": {
+      "$ref": "cash-flow-input.schema.json"
+    },
+    "result": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "decision",
+        "decision_reason",
+        "scale",
+        "hold",
+        "fix",
+        "funding_review",
+        "forecast_snapshot",
+        "next_steps",
+        "disclaimer"
+      ],
+      "properties": {
+        "decision": {
+          "type": "string",
+          "enum": [
+            "scale",
+            "hold",
+            "fix",
+            "funding_review"
+          ]
+        },
+        "decision_reason": {
+          "type": "string"
+        },
+        "scale": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "status",
+            "reason"
+          ],
+          "properties": {
+            "status": {
+              "type": "string"
+            },
+            "reason": {
+              "type": "string"
+            }
+          }
+        },
+        "hold": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "status",
+            "reason"
+          ],
+          "properties": {
+            "status": {
+              "type": "string"
+            },
+            "reason": {
+              "type": "string"
+            }
+          }
+        },
+        "fix": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "status",
+            "reason"
+          ],
+          "properties": {
+            "status": {
+              "type": "string"
+            },
+            "reason": {
+              "type": "string"
+            }
+          }
+        },
+        "funding_review": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "status",
+            "reason"
+          ],
+          "properties": {
+            "status": {
+              "type": "string"
+            },
+            "reason": {
+              "type": "string"
+            }
+          }
+        },
+        "forecast_snapshot": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "lowest_cash_day",
+            "lowest_cash_balance",
+            "estimated_cash_gap",
+            "risk_level",
+            "risk_score"
+          ],
+          "properties": {
+            "lowest_cash_day": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "lowest_cash_balance": {
+              "type": "number"
+            },
+            "estimated_cash_gap": {
+              "type": "number",
+              "minimum": 0
+            },
+            "risk_level": {
+              "type": "string",
+              "enum": [
+                "low",
+                "medium",
+                "high",
+                "critical"
+              ]
+            },
+            "risk_score": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100
+            }
+          }
+        },
+        "next_steps": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "disclaimer": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

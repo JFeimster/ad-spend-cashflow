@@ -1,8 +1,96 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ad-spend-cashflow.vercel.app/schemas/cash-flow-input.schema.json",
   "title": "CashFlowInput",
   "type": "object",
-  "properties": {},
-  "required": [],
-  "description": "Scaffold schema. Complete fields in a future step."
+  "additionalProperties": false,
+  "description": "Shared calculator input schema for ecommerce ad spend cash-flow forecasting.",
+  "required": [
+    "starting_cash",
+    "daily_ad_spend",
+    "expected_roas",
+    "gross_margin_percent",
+    "payout_lag_days"
+  ],
+  "properties": {
+    "starting_cash": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100000000,
+      "description": "Cash currently available in the business bank account."
+    },
+    "daily_ad_spend": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 10000000,
+      "description": "Planned or current daily paid advertising spend."
+    },
+    "expected_roas": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "description": "Expected revenue multiple from ad spend. This is not the same as available cash."
+    },
+    "gross_margin_percent": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "description": "Gross margin after cost of goods sold."
+    },
+    "payout_lag_days": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 30,
+      "description": "Number of days between order/revenue generation and cash payout."
+    },
+    "inventory_supplier_payment": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100000000,
+      "default": 0,
+      "description": "Upcoming inventory, supplier, or purchase order cash outflow."
+    },
+    "inventory_payment_day": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 30,
+      "default": 5,
+      "description": "Forecast day when the inventory or supplier payment leaves cash."
+    },
+    "refund_adjustment_percent": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 0,
+      "description": "Estimated percent drag from refunds, disputes, adjustments, fees, or leakage."
+    },
+    "forecast_window_days": {
+      "type": "integer",
+      "minimum": 7,
+      "maximum": 30,
+      "default": 14,
+      "description": "Forecast window length. Default is 14 days."
+    },
+    "minimum_cash_buffer": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100000000,
+      "default": 0,
+      "description": "Optional minimum cash balance to preserve when calculating safer ad spend."
+    }
+  },
+  "examples": [
+    {
+      "starting_cash": 25000,
+      "daily_ad_spend": 2500,
+      "expected_roas": 2,
+      "gross_margin_percent": 55,
+      "payout_lag_days": 5,
+      "inventory_supplier_payment": 10000,
+      "inventory_payment_day": 5,
+      "refund_adjustment_percent": 5,
+      "forecast_window_days": 14,
+      "minimum_cash_buffer": 5000
+    }
+  ]
 }

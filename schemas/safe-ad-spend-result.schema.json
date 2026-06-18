@@ -1,0 +1,128 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ad-spend-cashflow.vercel.app/schemas/safe-ad-spend-result.schema.json",
+  "title": "SafeAdSpendResult",
+  "type": "object",
+  "additionalProperties": false,
+  "description": "Structured result returned by POST /api/calculate-safe-ad-spend.",
+  "required": [
+    "ok",
+    "endpoint",
+    "inputs",
+    "result"
+  ],
+  "properties": {
+    "ok": {
+      "type": "boolean",
+      "const": true
+    },
+    "endpoint": {
+      "type": "string",
+      "const": "/api/calculate-safe-ad-spend"
+    },
+    "inputs": {
+      "$ref": "cash-flow-input.schema.json"
+    },
+    "result": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "estimated_safe_daily_ad_spend",
+        "current_daily_ad_spend",
+        "difference",
+        "minimum_cash_buffer",
+        "summary",
+        "disclaimer",
+        "current_spend_forecast",
+        "safe_spend_forecast"
+      ],
+      "properties": {
+        "estimated_safe_daily_ad_spend": {
+          "type": "number",
+          "minimum": 0
+        },
+        "current_daily_ad_spend": {
+          "type": "number",
+          "minimum": 0
+        },
+        "difference": {
+          "type": "number"
+        },
+        "minimum_cash_buffer": {
+          "type": "number",
+          "minimum": 0
+        },
+        "summary": {
+          "type": "string"
+        },
+        "disclaimer": {
+          "type": "string"
+        },
+        "current_spend_forecast": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "lowest_cash_day",
+            "lowest_cash_balance",
+            "estimated_cash_gap",
+            "recommendation"
+          ],
+          "properties": {
+            "lowest_cash_day": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "lowest_cash_balance": {
+              "type": "number"
+            },
+            "estimated_cash_gap": {
+              "type": "number",
+              "minimum": 0
+            },
+            "recommendation": {
+              "type": "string",
+              "enum": [
+                "scale",
+                "hold",
+                "fix",
+                "funding_review"
+              ]
+            }
+          }
+        },
+        "safe_spend_forecast": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "lowest_cash_day",
+            "lowest_cash_balance",
+            "estimated_cash_gap",
+            "recommendation"
+          ],
+          "properties": {
+            "lowest_cash_day": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "lowest_cash_balance": {
+              "type": "number"
+            },
+            "estimated_cash_gap": {
+              "type": "number",
+              "minimum": 0
+            },
+            "recommendation": {
+              "type": "string",
+              "enum": [
+                "scale",
+                "hold",
+                "fix",
+                "funding_review"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}
