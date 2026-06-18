@@ -1,0 +1,9 @@
+{
+  "recommendation": "hold",
+  "summary": "Scaffold response. Replace with forecast output.",
+  "lowest_cash_day": 0,
+  "lowest_cash_balance": 0,
+  "estimated_cash_gap": 0,
+  "daily_forecast": [],
+  "next_steps": []
+}

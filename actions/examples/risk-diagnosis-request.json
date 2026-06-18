@@ -1,0 +1,7 @@
+{
+  "starting_cash": 25000,
+  "daily_ad_spend": 2500,
+  "expected_roas": 2,
+  "gross_margin_percent": 55,
+  "payout_lag_days": 5
+}
