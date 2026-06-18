@@ -2,6 +2,8 @@
 
 Good for async coding-agent work.
 
+---
+
 **Recommended files:**
 
 ```
