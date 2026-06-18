@@ -1,4 +1,8 @@
-# Ad Spend Cash Flow Calculator Landing Page
+<img width="1774" height="887" alt="Image" src="https://github.com/user-attachments/assets/12cead08-c689-413c-bbfa-8aa70054288e" />
+
+---
+
+# Ad Spend Cash Flow Calculator
 
 A launch-ready static landing page for the **Ad Spend Cash Flow Calculator** Custom GPT.
 
