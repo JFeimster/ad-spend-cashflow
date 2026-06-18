@@ -1,0 +1,19 @@
+{
+  "project": "ad-spend-cashflow",
+  "agents": [
+    {
+      "id": "landing_page_agent",
+      "name": "Landing Page Agent",
+      "purpose": "Creates and revises conversion-focused static pages.",
+      "primary_files": ["index.html", "styles.css", "script.js"],
+      "guardrails": ["No fake testimonials", "No guaranteed outcomes"]
+    },
+    {
+      "id": "api_action_agent",
+      "name": "API Action Agent",
+      "purpose": "Creates Vercel endpoints, OpenAPI schemas, and GPT Action docs.",
+      "primary_files": ["api/", "actions/openapi.yaml", "schemas/"],
+      "guardrails": ["Validate inputs", "No frontend secrets"]
+    }
+  ]
+}
