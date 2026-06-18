@@ -1,0 +1,11 @@
+{
+  "risk_level": "high",
+  "risk_score": 78,
+  "primary_risks": [
+    "Payout lag delays cash recovery after daily ad spend leaves the account.",
+    "Inventory payment creates a concentrated cash hit during the forecast window.",
+    "Current daily ad spend is meaningful relative to starting cash."
+  ],
+  "recommendation": "Run the full cash-flow forecast before scaling.",
+  "disclaimer": "This is an educational planning estimate, not financial, lending, tax, accounting, or legal advice."
+}

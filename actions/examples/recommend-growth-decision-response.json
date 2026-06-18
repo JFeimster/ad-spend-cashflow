@@ -1,0 +1,20 @@
+{
+  "decision": "funding_review",
+  "decision_reason": "The forecast shows a timing-related cash gap. Review cash timing and funding options before increasing spend.",
+  "scale": {
+    "status": "not_primary",
+    "reason": "Scaling should wait until cash timing and economics are clearly safe."
+  },
+  "hold": {
+    "status": "available",
+    "reason": "Holding spend can give payout timing, refunds, and inventory pressure time to catch up."
+  },
+  "fix": {
+    "status": "review",
+    "reason": "Margin, refund drag, ROAS, and inventory timing should be checked before pushing spend."
+  },
+  "funding_review": {
+    "status": "recommended_review",
+    "reason": "Funding should only be reviewed when the underlying unit economics are sound and repayment risk is understood."
+  }
+}
