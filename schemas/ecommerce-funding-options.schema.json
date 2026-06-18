@@ -1,0 +1,490 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ad-spend-cashflow.vercel.app/schemas/ecommerce-funding-options.schema.json",
+  "title": "Ecommerce Funding Options Public Routing Schema",
+  "description": "Public-safe schema for ecommerce funding category guidance used by Ad Spend Cash Flow Calculator.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "asset_name",
+    "file_purpose",
+    "last_updated",
+    "primary_cta",
+    "calculator_positioning",
+    "guardrails",
+    "required_intake_fields",
+    "categories",
+    "route_rules",
+    "products",
+    "response_templates",
+    "fast_decline_or_reroute_signals",
+    "source_basis_summary"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "asset_name": {
+      "type": "string",
+      "minLength": 5
+    },
+    "file_purpose": {
+      "type": "string",
+      "minLength": 20
+    },
+    "last_updated": {
+      "type": "string",
+      "format": "date"
+    },
+    "primary_cta": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "label",
+        "url",
+        "use_when",
+        "do_not_use_when"
+      ],
+      "properties": {
+        "label": {
+          "type": "string",
+          "minLength": 3
+        },
+        "url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "use_when": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        },
+        "do_not_use_when": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "calculator_positioning": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "diagnostic_sequence",
+        "core_warning"
+      ],
+      "properties": {
+        "diagnostic_sequence": {
+          "type": "array",
+          "minItems": 3,
+          "items": {
+            "type": "string"
+          }
+        },
+        "core_warning": {
+          "type": "string",
+          "minLength": 30
+        }
+      }
+    },
+    "guardrails": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "never_claim",
+        "required_phrasing",
+        "sensitive_data_policy"
+      ],
+      "properties": {
+        "never_claim": {
+          "type": "array",
+          "minItems": 5,
+          "items": {
+            "type": "string"
+          }
+        },
+        "required_phrasing": {
+          "type": "array",
+          "minItems": 3,
+          "items": {
+            "type": "string"
+          }
+        },
+        "sensitive_data_policy": {
+          "type": "array",
+          "minItems": 3,
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "required_intake_fields": {
+      "type": "array",
+      "minItems": 8,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "field",
+          "prompt"
+        ],
+        "properties": {
+          "field": {
+            "type": "string",
+            "pattern": "^[a-z0-9_]+$"
+          },
+          "prompt": {
+            "type": "string",
+            "minLength": 5
+          },
+          "examples": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "categories": {
+      "type": "array",
+      "minItems": 4,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "name",
+          "best_for",
+          "possible_structures",
+          "fit_indicators",
+          "caution_flags",
+          "chat_template"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9_]+$"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 3
+          },
+          "best_for": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "possible_structures": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "fit_indicators": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "caution_flags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "chat_template": {
+            "type": "string",
+            "minLength": 30
+          }
+        }
+      }
+    },
+    "route_rules": {
+      "type": "array",
+      "minItems": 4,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "scenario",
+          "conditions",
+          "primary_category_id",
+          "backup_category_ids",
+          "cta_allowed",
+          "response_guidance"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9_]+$"
+          },
+          "scenario": {
+            "type": "string",
+            "minLength": 10
+          },
+          "conditions": {
+            "type": "object"
+          },
+          "primary_category_id": {
+            "type": "string",
+            "pattern": "^[a-z0-9_]+$"
+          },
+          "backup_category_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[a-z0-9_]+$"
+            }
+          },
+          "cta_allowed": {
+            "type": "boolean"
+          },
+          "response_guidance": {
+            "type": "string",
+            "minLength": 10
+          }
+        }
+      }
+    },
+    "products": {
+      "type": "array",
+      "minItems": 4,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "slug",
+          "category_id",
+          "funding_type",
+          "solution_family",
+          "short_description",
+          "amount_range",
+          "minimums",
+          "qualification_snapshot",
+          "term_length",
+          "pricing_summary",
+          "speed_to_funding",
+          "payment_type",
+          "documents_required",
+          "common_disqualifiers",
+          "recommended_audience",
+          "urgency_level",
+          "route_tags",
+          "routing_priority",
+          "user_facing",
+          "notes_for_gpt"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 3
+          },
+          "slug": {
+            "type": "string",
+            "pattern": "^[a-z0-9-]+$"
+          },
+          "category_id": {
+            "type": "string",
+            "pattern": "^[a-z0-9_]+$"
+          },
+          "funding_type": {
+            "type": "string"
+          },
+          "solution_family": {
+            "type": "string"
+          },
+          "short_description": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "amount_range": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "min",
+              "max",
+              "display"
+            ],
+            "properties": {
+              "min": {
+                "type": [
+                  "number",
+                  "integer",
+                  "null"
+                ],
+                "minimum": 0
+              },
+              "max": {
+                "type": [
+                  "number",
+                  "integer",
+                  "null"
+                ],
+                "minimum": 0
+              },
+              "display": {
+                "type": "string"
+              }
+            }
+          },
+          "minimums": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "credit_score",
+              "monthly_revenue",
+              "time_in_business"
+            ],
+            "properties": {
+              "credit_score": {
+                "type": [
+                  "number",
+                  "integer",
+                  "null"
+                ],
+                "minimum": 0
+              },
+              "monthly_revenue": {
+                "type": [
+                  "number",
+                  "integer",
+                  "null"
+                ],
+                "minimum": 0
+              },
+              "time_in_business": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          },
+          "qualification_snapshot": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "term_length": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "pricing_summary": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "speed_to_funding": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "payment_type": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "documents_required": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "common_disqualifiers": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "recommended_audience": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "urgency_level": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "enum": [
+              "low",
+              "medium",
+              "high",
+              null
+            ]
+          },
+          "route_tags": {
+            "type": "array",
+            "items": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "routing_priority": {
+            "type": "string",
+            "enum": [
+              "primary",
+              "secondary",
+              "fallback"
+            ]
+          },
+          "user_facing": {
+            "type": "boolean"
+          },
+          "notes_for_gpt": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "response_templates": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    },
+    "fast_decline_or_reroute_signals": {
+      "type": "array",
+      "minItems": 5,
+      "items": {
+        "type": "string"
+      }
+    },
+    "source_basis_summary": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}
