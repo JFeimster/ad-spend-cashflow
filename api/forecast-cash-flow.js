@@ -1,77 +1,98 @@
-/**
- * forecast-cash-flow
- * Main ecommerce ad spend cash-flow forecast endpoint.
- *
- * Vercel endpoint:
- * POST /api/forecast-cash-flow
- */
-import { forecastCashFlow } from "../lib/cashflow-engine.js";
-import { parseJsonBody, validateCashFlowInputs } from "../lib/validators.js";
-
-function setResponseHeaders(res) {
-  res.setHeader("Content-Type", "application/json");
-  res.setHeader("Access-Control-Allow-Origin", process.env.ALLOWED_ORIGIN || "*");
-  res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization, x-api-key");
-}
-
-function isAuthorized(req) {
-  const expectedKey = process.env.ACTION_API_KEY;
-  if (!expectedKey) return true;
-
-  const authHeader = req.headers.authorization || "";
-  const bearerToken = authHeader.startsWith("Bearer ") ? authHeader.slice(7) : "";
-  const apiKey = req.headers["x-api-key"];
-
-  return bearerToken === expectedKey || apiKey === expectedKey;
-}
-
 export default async function handler(req, res) {
-  setResponseHeaders(res);
-
-  if (req.method === "OPTIONS") {
-    return res.status(204).end();
-  }
-
   if (req.method !== "POST") {
     return res.status(405).json({
-      ok: false,
       error: "Method not allowed. Use POST."
     });
   }
 
-  if (!isAuthorized(req)) {
-    return res.status(401).json({
-      ok: false,
-      error: "Unauthorized. Provide a valid API key."
-    });
-  }
-
   try {
-    const payload = parseJsonBody(req);
-    const validation = validateCashFlowInputs(payload);
+    const {
+      starting_cash = 0,
+      daily_ad_spend = 0,
+      expected_roas = 0,
+      gross_margin_percent = 0,
+      payout_lag_days = 0,
+      inventory_supplier_payment = 0,
+      inventory_payment_day = 5,
+      refund_adjustment_percent = 0,
+      forecast_window_days = 14
+    } = req.body;
 
-    if (!validation.ok) {
-      return res.status(400).json({
-        ok: false,
-        error: "Invalid cash-flow inputs.",
-        details: validation.errors
+    const dailyForecast = [];
+    let cash = Number(starting_cash);
+    let lowestCash = cash;
+    let lowestCashDay = 0;
+
+    for (let day = 1; day <= forecast_window_days; day++) {
+      cash -= Number(daily_ad_spend);
+
+      const payoutDay = day - Number(payout_lag_days);
+      if (payoutDay > 0) {
+        const grossRevenue = Number(daily_ad_spend) * Number(expected_roas);
+        const contributionCash =
+          grossRevenue *
+          (Number(gross_margin_percent) / 100) *
+          (1 - Number(refund_adjustment_percent) / 100);
+
+        cash += contributionCash;
+      }
+
+      if (day === Number(inventory_payment_day)) {
+        cash -= Number(inventory_supplier_payment);
+      }
+
+      if (cash < lowestCash) {
+        lowestCash = cash;
+        lowestCashDay = day;
+      }
+
+      dailyForecast.push({
+        day,
+        cash_balance: Math.round(cash),
+        notes:
+          day <= payout_lag_days
+            ? "Ad spend leaves cash before payouts arrive."
+            : "Delayed contribution cash begins to arrive."
       });
     }
 
-    const result = forecastCashFlow(validation.inputs);
+    const estimatedCashGap = lowestCash < 0 ? Math.abs(lowestCash) : 0;
+
+    let recommendation = "hold";
+
+    if (estimatedCashGap > 0) {
+      recommendation = "funding_review";
+    }
+
+    if (expected_roas < 1.5 || gross_margin_percent < 35) {
+      recommendation = "fix";
+    }
+
+    if (estimatedCashGap === 0 && lowestCash > starting_cash * 0.25) {
+      recommendation = "scale";
+    }
 
     return res.status(200).json({
-      ok: true,
-      endpoint: "/api/forecast-cash-flow",
-      inputs: validation.inputs,
-      result
+      recommendation,
+      summary:
+        estimatedCashGap > 0
+          ? "Your current assumptions may create a cash gap during the forecast window."
+          : "Your current assumptions do not show a cash gap during the forecast window.",
+      lowest_cash_day: lowestCashDay,
+      lowest_cash_balance: Math.round(lowestCash),
+      estimated_cash_gap: Math.round(estimatedCashGap),
+      daily_forecast: dailyForecast,
+      next_steps: [
+        "Review payout timing before increasing ad spend.",
+        "Check margin, refund drag, and inventory timing.",
+        "Compare funding options only if unit economics are sound."
+      ],
+      disclaimer:
+        "This is an educational planning estimate, not financial, lending, tax, accounting, or legal advice."
     });
   } catch (error) {
     return res.status(500).json({
-      ok: false,
-      error: "Unable to generate cash-flow forecast.",
-      details: process.env.NODE_ENV === "development" ? String(error?.message || error) : undefined
+      error: "Unable to generate forecast."
     });
   }
 }
