@@ -1,0 +1,23 @@
+{
+  "public_routes": [
+    "/",
+    "/how-it-works.html",
+    "/use-cases.html",
+    "/prompts.html",
+    "/funding.html",
+    "/api-actions.html"
+  ],
+  "legal_routes": [
+    "/legal/privacy.html",
+    "/legal/terms.html",
+    "/legal/disclaimer.html"
+  ],
+  "api_routes": [
+    "/api/forecast-cash-flow",
+    "/api/diagnose-ad-spend-risk",
+    "/api/calculate-safe-ad-spend",
+    "/api/recommend-growth-decision",
+    "/api/generate-analysis-package",
+    "/api/save-analysis-request"
+  ]
+}
