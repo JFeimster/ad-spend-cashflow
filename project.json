@@ -1,0 +1,14 @@
+{
+  "name": "ad-spend-cashflow",
+  "product_name": "Ad Spend Cash Flow Calculator",
+  "type": "static_site_with_vercel_api",
+  "primary_cta": "Run the Ad Spend Cash Flow Calculator",
+  "secondary_cta": "Compare Ecommerce Funding Options",
+  "audience": [
+    "Shopify merchants",
+    "Amazon sellers",
+    "DTC founders",
+    "media buyers",
+    "ecommerce operators"
+  ]
+}
