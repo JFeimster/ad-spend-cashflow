@@ -1,0 +1,242 @@
+openapi: 3.1.0
+info:
+  title: Ad Spend Cash Flow Calculator API
+  version: 1.0.0
+  description: API for ecommerce ad spend cash-flow forecasting, risk diagnosis, and decision support.
+servers:
+  - url: https://your-domain.vercel.app
+paths:
+  /api/forecast-cash-flow:
+    post:
+      operationId: forecastCashFlow
+      summary: Forecast 14-day ecommerce ad spend cash flow
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CashFlowInputs"
+      responses:
+        "200":
+          description: Cash-flow forecast result
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CashFlowForecastResult"
+
+  /api/diagnose-ad-spend-risk:
+    post:
+      operationId: diagnoseAdSpendRisk
+      summary: Diagnose ad spend cash-flow risk
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CashFlowInputs"
+      responses:
+        "200":
+          description: Risk diagnosis
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  risk_level:
+                    type: string
+                    enum: [low, medium, high, critical]
+                  risk_score:
+                    type: number
+                  primary_risks:
+                    type: array
+                    items:
+                      type: string
+                  recommendation:
+                    type: string
+
+  /api/calculate-safe-ad-spend:
+    post:
+      operationId: calculateSafeAdSpend
+      summary: Estimate safe daily ad spend based on cash constraints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/CashFlowInputs"
+                - type: object
+                  properties:
+                    minimum_cash_buffer:
+                      type: number
+      responses:
+        "200":
+          description: Safe ad spend estimate
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  estimated_safe_daily_ad_spend:
+                    type: number
+                  current_daily_ad_spend:
+                    type: number
+                  difference:
+                    type: number
+                  summary:
+                    type: string
+                  notes:
+                    type: array
+                    items:
+                      type: string
+
+  /api/recommend-growth-decision:
+    post:
+      operationId: recommendGrowthDecision
+      summary: Recommend whether to scale, hold, fix economics, or review funding options
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CashFlowInputs"
+      responses:
+        "200":
+          description: Growth decision recommendation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  decision:
+                    type: string
+                    enum: [scale, hold, fix, funding_review]
+                  decision_reason:
+                    type: string
+                  scale:
+                    $ref: "#/components/schemas/DecisionBlock"
+                  hold:
+                    $ref: "#/components/schemas/DecisionBlock"
+                  fix:
+                    $ref: "#/components/schemas/DecisionBlock"
+                  funding_review:
+                    $ref: "#/components/schemas/DecisionBlock"
+
+  /api/generate-analysis-package:
+    post:
+      operationId: generateAnalysisPackage
+      summary: Generate GPT-ready prompt and JSON payload from calculator inputs
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CashFlowInputs"
+      responses:
+        "200":
+          description: GPT prompt and structured JSON payload
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  gpt_prompt:
+                    type: string
+                  json_payload:
+                    type: object
+                  next_cta:
+                    type: object
+                    properties:
+                      label:
+                        type: string
+                      destination:
+                        type: string
+
+components:
+  schemas:
+    CashFlowInputs:
+      type: object
+      required:
+        - starting_cash
+        - daily_ad_spend
+        - expected_roas
+        - gross_margin_percent
+        - payout_lag_days
+      properties:
+        starting_cash:
+          type: number
+          minimum: 0
+        daily_ad_spend:
+          type: number
+          minimum: 0
+        expected_roas:
+          type: number
+          minimum: 0
+          description: Expected revenue multiple from ad spend. This is not the same as cash flow.
+        gross_margin_percent:
+          type: number
+          minimum: 0
+          maximum: 100
+        payout_lag_days:
+          type: integer
+          minimum: 0
+          maximum: 30
+        inventory_supplier_payment:
+          type: number
+          minimum: 0
+          default: 0
+        inventory_payment_day:
+          type: integer
+          minimum: 1
+          maximum: 14
+          default: 5
+        refund_adjustment_percent:
+          type: number
+          minimum: 0
+          maximum: 100
+          default: 0
+        forecast_window_days:
+          type: integer
+          minimum: 7
+          maximum: 30
+          default: 14
+
+    CashFlowForecastResult:
+      type: object
+      properties:
+        recommendation:
+          type: string
+          enum: [scale, hold, fix, funding_review]
+        summary:
+          type: string
+        lowest_cash_day:
+          type: integer
+        lowest_cash_balance:
+          type: number
+        estimated_cash_gap:
+          type: number
+        daily_forecast:
+          type: array
+          items:
+            type: object
+            properties:
+              day:
+                type: integer
+              cash_balance:
+                type: number
+              notes:
+                type: string
+        next_steps:
+          type: array
+          items:
+            type: string
+        disclaimer:
+          type: string
+
+    DecisionBlock:
+      type: object
+      properties:
+        status:
+          type: string
+        reason:
+          type: string
