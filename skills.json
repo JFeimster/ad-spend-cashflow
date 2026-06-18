@@ -1,0 +1,32 @@
+{
+  "project": "ad-spend-cashflow",
+  "skills": [
+    {
+      "id": "cashflow_forecast_engine",
+      "name": "Cash Flow Forecast Engine",
+      "description": "Generate 14-day ecommerce ad spend cash-flow forecasts using ad spend, ROAS, margin, payout lag, inventory payments, and refund drag.",
+      "inputs": [
+        "starting_cash",
+        "daily_ad_spend",
+        "expected_roas",
+        "gross_margin_percent",
+        "payout_lag_days",
+        "inventory_supplier_payment",
+        "inventory_payment_day",
+        "refund_adjustment_percent"
+      ],
+      "outputs": [
+        "daily_forecast",
+        "lowest_cash_day",
+        "estimated_cash_gap",
+        "recommendation",
+        "risk_notes"
+      ],
+      "files": [
+        "lib/cashflow-engine.js",
+        "api/forecast-cash-flow.js",
+        "schemas/cash-flow-input.schema.json"
+      ]
+    }
+  ]
+}
