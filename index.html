@@ -1,0 +1,564 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ad Spend Cash Flow Calculator | Forecast Ecommerce Ad Cash Gaps</title>
+  <meta name="description" content="Forecast ecommerce ad spend cash flow, payout lag, inventory pressure, and 14-day cash gaps before paid ads turn into a bank-account hostage situation." />
+  <meta name="robots" content="index,follow" />
+  <meta name="theme-color" content="#070A12" />
+
+  <meta property="og:title" content="Ad Spend Cash Flow Calculator" />
+  <meta property="og:description" content="See whether your ecommerce ads are creating cash, chaos, or a funding gap." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://chatgpt.com/g/g-6a3359a8328c8191acc5cba7968a1639-ad-spend-cash-flow-calculator" />
+  <!-- Optional: replace with your hosted preview image. -->
+  <meta property="og:image" content="" />
+
+  <link rel="stylesheet" href="styles.css" />
+  <script defer src="script.js"></script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Ad Spend Cash Flow Calculator",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "ChatGPT",
+    "description": "Forecasts ecommerce ad spend cash flow, payout lag, cash gaps, and scale/fund decisions.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD",
+      "description": "Free to use inside ChatGPT when publicly accessible through the GPT link."
+    }
+  }
+  </script>
+</head>
+
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header" data-header>
+    <div class="container nav-wrap">
+      <a class="brand" href="#top" aria-label="Ad Spend Cash Flow Calculator home">
+        <span class="brand-mark" aria-hidden="true">$</span>
+        <span class="brand-text">
+          <strong>Ad Spend Cash Flow</strong>
+          <small>Calculator GPT</small>
+        </span>
+      </a>
+
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">
+        <span class="sr-only">Toggle navigation</span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </button>
+
+      <nav id="primary-nav" class="primary-nav" aria-label="Primary navigation">
+        <a href="#calculator">Preview</a>
+        <a href="#use-cases">Use cases</a>
+        <a href="#how-it-works">How it works</a>
+        <a href="#faq">FAQ</a>
+        <a class="nav-cta" href="https://chatgpt.com/g/g-6a3359a8328c8191acc5cba7968a1639-ad-spend-cash-flow-calculator" target="_blank" rel="noopener">Run the GPT</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section id="top" class="hero section">
+      <div class="hero-glow hero-glow-one" aria-hidden="true"></div>
+      <div class="hero-glow hero-glow-two" aria-hidden="true"></div>
+
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">For ecommerce operators spending real money on paid ads</p>
+          <h1>Find the cash gap before your ads find it for you.</h1>
+          <p class="hero-subhead">
+            Forecast ad spend, payout lag, inventory pressure, refunds, supplier timing, and 14-day cash flow
+            before “profitable growth” turns into a bank-account hostage situation.
+          </p>
+
+          <div class="hero-actions" aria-label="Primary actions">
+            <a class="btn btn-primary" href="https://chatgpt.com/g/g-6a3359a8328c8191acc5cba7968a1639-ad-spend-cash-flow-calculator" target="_blank" rel="noopener">
+              Run the Ad Spend Cash Flow Calculator
+              <span aria-hidden="true">→</span>
+            </a>
+            <a class="btn btn-secondary" href="https://tally.so/r/w4R2Ad" target="_blank" rel="noopener">
+              Compare Ecommerce Funding Options
+            </a>
+          </div>
+
+          <p class="trust-note">
+            Free to use inside ChatGPT when the GPT link is public. Works best with ad spend exports,
+            payout reports, CSVs, spreadsheets, or your best current assumptions.
+          </p>
+
+          <div class="hero-stats" aria-label="Calculator outputs">
+            <div>
+              <strong>14-day</strong>
+              <span>cash forecast</span>
+            </div>
+            <div>
+              <strong>Scale / hold</strong>
+              <span>decision support</span>
+            </div>
+            <div>
+              <strong>Lag-aware</strong>
+              <span>payout modeling</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-card" aria-label="Cash flow forecast preview">
+          <div class="terminal-top">
+            <span></span><span></span><span></span>
+            <p>cash_gap_forecast.gpt</p>
+          </div>
+          <div class="forecast-panel">
+            <div class="forecast-row">
+              <span>Daily ad spend</span>
+              <strong>$2,500</strong>
+            </div>
+            <div class="forecast-row">
+              <span>Payout lag</span>
+              <strong>5 days</strong>
+            </div>
+            <div class="forecast-row">
+              <span>Inventory payment</span>
+              <strong>$18,000</strong>
+            </div>
+            <div class="forecast-row danger">
+              <span>Lowest cash point</span>
+              <strong>Day 8: -$7,420</strong>
+            </div>
+            <div class="decision-card">
+              <span class="status-dot"></span>
+              <div>
+                <p class="decision-label">Recommended next move</p>
+                <strong>Hold scale. Fix timing or review funding options.</strong>
+              </div>
+            </div>
+            <div class="mini-chart" aria-label="Illustrative cash flow line">
+              <span style="--h: 35%"></span>
+              <span style="--h: 42%"></span>
+              <span style="--h: 30%"></span>
+              <span style="--h: 22%"></span>
+              <span style="--h: 18%"></span>
+              <span style="--h: 10%"></span>
+              <span style="--h: 24%"></span>
+              <span style="--h: 43%"></span>
+              <span style="--h: 56%"></span>
+              <span style="--h: 62%"></span>
+              <span style="--h: 51%"></span>
+              <span style="--h: 69%"></span>
+            </div>
+          </div>
+          <p class="card-caption">
+            Demo numbers are illustrative. The GPT helps you pressure-test your own assumptions.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="logos section-tight" aria-label="Trust signals">
+      <div class="container trust-strip">
+        <span>Built for Shopify merchants</span>
+        <span>Amazon sellers</span>
+        <span>DTC founders</span>
+        <span>Media buyers</span>
+        <span>Operators who respect cash</span>
+      </div>
+    </section>
+
+    <section class="section problem">
+      <div class="container two-col">
+        <div>
+          <p class="eyebrow">The ugly ecommerce math</p>
+          <h2>ROAS can look gorgeous while your bank account bleeds.</h2>
+        </div>
+        <div class="copy-stack">
+          <p>
+            Ads charge now. Platforms pay later. Inventory wants cash before customers even see the product.
+            Refunds, holds, supplier deposits, and reorder timing do not care that your dashboard says you are winning.
+          </p>
+          <p>
+            This GPT is built for the moment when you need a practical answer:
+            <strong>Can we safely spend more, or are we about to create a cash gap?</strong>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="calculator" class="section">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow">Interactive landing page preview</p>
+          <h2>Run a quick cash-gap pulse check.</h2>
+          <p>
+            This mini estimator is a simple preview. For deeper planning, upload your reports or assumptions
+            into the GPT and ask for a 14-day forecast.
+          </p>
+        </div>
+
+        <div class="calculator-grid">
+          <form class="calc-card" id="cashflow-form" aria-describedby="calc-help">
+            <p id="calc-help" class="form-help">
+              Adjust the numbers below to estimate whether ad spend may create a short-term cash squeeze.
+            </p>
+
+            <label>
+              Starting cash
+              <span class="input-prefix">$</span>
+              <input type="number" id="startingCash" value="25000" min="0" step="500" inputmode="decimal" />
+            </label>
+
+            <label>
+              Daily ad spend
+              <span class="input-prefix">$</span>
+              <input type="number" id="dailyAdSpend" value="2500" min="0" step="100" inputmode="decimal" />
+            </label>
+
+            <label>
+              Expected ROAS / revenue multiple
+              <input type="number" id="roas" value="2.1" min="0" step="0.1" inputmode="decimal" />
+            </label>
+
+            <label>
+              Gross margin after COGS
+              <span class="input-suffix">%</span>
+              <input type="number" id="grossMargin" value="55" min="0" max="100" step="1" inputmode="decimal" />
+            </label>
+
+            <label>
+              Payout lag
+              <span class="input-suffix">days</span>
+              <input type="number" id="payoutLag" value="5" min="0" max="14" step="1" inputmode="numeric" />
+            </label>
+
+            <label>
+              Upcoming inventory / supplier payment
+              <span class="input-prefix">$</span>
+              <input type="number" id="inventoryPayment" value="18000" min="0" step="500" inputmode="decimal" />
+            </label>
+
+            <label>
+              Inventory payment day
+              <span class="input-suffix">day</span>
+              <input type="number" id="inventoryDay" value="6" min="1" max="14" step="1" inputmode="numeric" />
+            </label>
+
+            <label>
+              Refund / adjustment drag
+              <span class="input-suffix">%</span>
+              <input type="number" id="refundRate" value="4" min="0" max="100" step="1" inputmode="decimal" />
+            </label>
+
+            <button class="btn btn-primary calc-submit" type="submit">Update forecast preview</button>
+          </form>
+
+          <aside class="results-card" aria-live="polite" aria-atomic="true">
+            <p class="eyebrow">Estimated 14-day signal</p>
+            <h3 id="resultTitle">Hold scale until timing improves.</h3>
+
+            <div class="result-metrics">
+              <div>
+                <span>Lowest projected cash</span>
+                <strong id="lowestCash">$0</strong>
+              </div>
+              <div>
+                <span>Lowest cash day</span>
+                <strong id="lowestDay">Day 0</strong>
+              </div>
+              <div>
+                <span>Estimated paid-in revenue</span>
+                <strong id="paidRevenue">$0</strong>
+              </div>
+              <div>
+                <span>Projected ending cash</span>
+                <strong id="endingCash">$0</strong>
+              </div>
+            </div>
+
+            <div class="forecast-bars" id="forecastBars" aria-label="14-day cash projection bars"></div>
+
+            <p id="resultCopy" class="result-copy">
+              Your forecast preview will appear here.
+            </p>
+
+            <div class="result-actions">
+              <a class="btn btn-primary" href="https://chatgpt.com/g/g-6a3359a8328c8191acc5cba7968a1639-ad-spend-cash-flow-calculator" target="_blank" rel="noopener">
+                Run the full GPT forecast
+              </a>
+              <a class="btn btn-secondary" href="https://tally.so/r/w4R2Ad" target="_blank" rel="noopener">
+                Compare funding options
+              </a>
+            </div>
+
+            <p class="fine-print">
+              Educational planning output only. Review assumptions with your finance, accounting, tax,
+              legal, or lending professionals before making major decisions.
+            </p>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="section features">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow">What it checks</p>
+          <h2>Less dashboard dopamine. More cash reality.</h2>
+        </div>
+
+        <div class="bento-grid">
+          <article class="bento-card large">
+            <span class="card-icon" aria-hidden="true">⌁</span>
+            <h3>Payout lag pressure</h3>
+            <p>
+              Model the time gap between spending on ads and actually seeing cash from platform payouts,
+              marketplace settlements, or payment processors.
+            </p>
+          </article>
+
+          <article class="bento-card">
+            <span class="card-icon" aria-hidden="true">↓</span>
+            <h3>Cash trough</h3>
+            <p>See the lowest projected cash point, not just the rosy ending number.</p>
+          </article>
+
+          <article class="bento-card">
+            <span class="card-icon" aria-hidden="true">↺</span>
+            <h3>Inventory timing</h3>
+            <p>Pressure-test supplier deposits, reorder payments, purchase orders, and stockout risk.</p>
+          </article>
+
+          <article class="bento-card">
+            <span class="card-icon" aria-hidden="true">⚡</span>
+            <h3>Scale decision support</h3>
+            <p>Turn messy assumptions into a blunt signal: scale, hold, fix economics, or review capital options.</p>
+          </article>
+
+          <article class="bento-card">
+            <span class="card-icon" aria-hidden="true">%</span>
+            <h3>Margin reality</h3>
+            <p>Separate top-line revenue from contribution cash after COGS, refunds, fees, and timing drag.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="how-it-works" class="section">
+      <div class="container">
+        <div class="section-head narrow">
+          <p class="eyebrow">How it works</p>
+          <h2>Upload the chaos. Get the playbook.</h2>
+          <p>
+            Use rough numbers for a fast read or upload exports for a cleaner forecast.
+            The GPT helps organize assumptions into a practical operator view.
+          </p>
+        </div>
+
+        <div class="steps">
+          <article class="step-card">
+            <span>01</span>
+            <h3>Add spend + sales assumptions</h3>
+            <p>
+              Start with daily ad spend, expected revenue, payout timing, margin, refunds, and fees.
+              Messy is fine. Invisible assumptions are not.
+            </p>
+          </article>
+
+          <article class="step-card">
+            <span>02</span>
+            <h3>Layer in cash obligations</h3>
+            <p>
+              Include inventory payments, supplier terms, marketplace holds, payroll, tools, debt payments,
+              and any chunky bills that hit before cash arrives.
+            </p>
+          </article>
+
+          <article class="step-card">
+            <span>03</span>
+            <h3>Review the 14-day decision</h3>
+            <p>
+              Get a clear forecast and next-step framing: scale carefully, hold spend, fix the model,
+              delay reorders, or compare funding options with human review.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="use-cases" class="section use-cases">
+      <div class="container two-col">
+        <div class="sticky-side">
+          <p class="eyebrow">Use cases</p>
+          <h2>Built for operators who need answers, not another dashboard.</h2>
+          <p>
+            The best time to check cash flow is before you increase spend. The second-best time is before
+            the card gets declined.
+          </p>
+          <a class="btn btn-primary" href="https://chatgpt.com/g/g-6a3359a8328c8191acc5cba7968a1639-ad-spend-cash-flow-calculator" target="_blank" rel="noopener">
+            Forecast Your Ad Spend Cash Gap
+          </a>
+        </div>
+
+        <div class="use-list">
+          <article>
+            <h3>Before scaling a winning campaign</h3>
+            <p>Check whether increased spend creates enough cash soon enough to support inventory and operations.</p>
+          </article>
+          <article>
+            <h3>Before a reorder or supplier deposit</h3>
+            <p>See whether payout lag and ad bills collide with purchase order timing.</p>
+          </article>
+          <article>
+            <h3>Before using funding</h3>
+            <p>Compare the cash gap first. Do not throw capital at broken unit economics.</p>
+          </article>
+          <article>
+            <h3>During peak season planning</h3>
+            <p>Stress-test bigger spend, delayed settlements, refund spikes, and inventory payment clusters.</p>
+          </article>
+          <article>
+            <h3>When ROAS looks good but cash feels bad</h3>
+            <p>Separate the performance marketing story from the cash-flow story.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section access">
+      <div class="container access-card">
+        <div>
+          <p class="eyebrow">Access</p>
+          <h2>Run the GPT inside ChatGPT.</h2>
+          <p>
+            Bring your assumptions, CSVs, payout reports, ad spend exports, or spreadsheet snapshots.
+            The GPT helps turn them into a 14-day cash-flow forecast and decision support.
+          </p>
+        </div>
+
+        <div class="access-actions">
+          <a class="btn btn-primary" href="https://chatgpt.com/g/g-6a3359a8328c8191acc5cba7968a1639-ad-spend-cash-flow-calculator" target="_blank" rel="noopener">
+            Run the Ad Spend Cash Flow Calculator
+            <span aria-hidden="true">→</span>
+          </a>
+          <a class="btn btn-secondary" href="https://tally.so/r/w4R2Ad" target="_blank" rel="noopener">
+            Compare Ecommerce Funding Options
+          </a>
+          <p class="fine-print">
+            Funding comparison does not guarantee approval, rates, terms, or suitability.
+            Review options carefully before making financing decisions.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" class="section faq">
+      <div class="container">
+        <div class="section-head narrow">
+          <p class="eyebrow">FAQ</p>
+          <h2>Questions ecommerce founders ask before cash gets weird.</h2>
+        </div>
+
+        <div class="faq-list">
+          <details>
+            <summary>Is this the same as a ROAS calculator?</summary>
+            <p>
+              No. ROAS compares revenue to ad spend. Cash flow looks at timing: when ads are billed,
+              when payouts arrive, when inventory must be paid for, and whether the store has enough cash
+              to bridge the gap.
+            </p>
+          </details>
+
+          <details>
+            <summary>Can it tell me whether to scale my ads?</summary>
+            <p>
+              It can help frame the decision by showing cash pressure, payout lag, and risk signals.
+              It should not be treated as automatic financial advice or a guarantee that scaling will work.
+            </p>
+          </details>
+
+          <details>
+            <summary>What data should I bring?</summary>
+            <p>
+              Start with daily ad spend, revenue assumptions, gross margin, payout timing, current cash,
+              refunds, fees, upcoming supplier payments, inventory needs, and any fixed obligations.
+              Uploads such as CSVs, spreadsheets, ad exports, or payout reports can make the analysis cleaner.
+            </p>
+          </details>
+
+          <details>
+            <summary>Should I use funding to cover the gap?</summary>
+            <p>
+              Not automatically. The calculator helps identify whether a gap exists and why.
+              Funding can add cost and risk, so compare options carefully and avoid using capital to prop up
+              broken economics.
+            </p>
+          </details>
+
+          <details>
+            <summary>Does this replace my CFO, accountant, CPA, lender, or attorney?</summary>
+            <p>
+              No. It is an educational planning tool for ecommerce cash-flow thinking.
+              Review important financial, legal, accounting, tax, and lending decisions with qualified professionals.
+            </p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="section final-cta">
+      <div class="container final-card">
+        <p class="eyebrow">Not sure if your ads are creating cash or just chaos?</p>
+        <h2>Forecast the gap before you feed the machine.</h2>
+        <p>
+          Run the Ad Spend Cash Flow Calculator to forecast payout lag, inventory pressure, cash gaps,
+          and whether you should scale, hold, fix, or review funding options.
+        </p>
+
+        <div class="hero-actions centered">
+          <a class="btn btn-primary" href="https://chatgpt.com/g/g-6a3359a8328c8191acc5cba7968a1639-ad-spend-cash-flow-calculator" target="_blank" rel="noopener">
+            Run the Ad Spend Cash Flow Calculator
+          </a>
+          <a class="btn btn-secondary" href="https://tally.so/r/w4R2Ad" target="_blank" rel="noopener">
+            Compare Ecommerce Funding Options
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <a class="brand" href="#top" aria-label="Ad Spend Cash Flow Calculator home">
+          <span class="brand-mark" aria-hidden="true">$</span>
+          <span class="brand-text">
+            <strong>Ad Spend Cash Flow</strong>
+            <small>Calculator GPT</small>
+          </span>
+        </a>
+        <p>
+          A practical cash-flow planning GPT for ecommerce sellers, DTC founders,
+          media buyers, and finance-minded operators.
+        </p>
+      </div>
+
+      <div class="footer-links">
+        <a href="https://chatgpt.com/g/g-6a3359a8328c8191acc5cba7968a1639-ad-spend-cash-flow-calculator" target="_blank" rel="noopener">Run the GPT</a>
+        <a href="https://tally.so/r/w4R2Ad" target="_blank" rel="noopener">Compare funding options</a>
+        <a href="#faq">FAQ</a>
+      </div>
+    </div>
+
+    <div class="container footer-bottom">
+      <p>© <span id="year"></span> Ad Spend Cash Flow Calculator. All rights reserved.</p>
+      <p>Educational planning only. No profitability, funding, or performance guarantees.</p>
+    </div>
+  </footer>
+</body>
+</html>
