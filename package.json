@@ -1,0 +1,13 @@
+{
+  "name": "ad-spend-cashflow",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Landing page and integration scaffold for the Ad Spend Cash Flow Calculator GPT.",
+  "type": "module",
+  "scripts": {
+    "dev": "vercel dev",
+    "test": "node --test"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}
