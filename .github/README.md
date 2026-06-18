@@ -2,6 +2,7 @@
 
 These make the repo more professional and easier to maintain.
 
+```
 .github/
 ├── copilot-instructions.md
 ├── ISSUE_TEMPLATE/
@@ -14,3 +15,4 @@ These make the repo more professional and easier to maintain.
 └── workflows/
     ├── test.yml
     └── deploy-check.yml
+```
