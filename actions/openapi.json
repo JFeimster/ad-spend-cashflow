@@ -1,0 +1,14 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Ad Spend Cash Flow Calculator API",
+    "version": "0.1.0",
+    "description": "Scaffold OpenAPI file for future Custom GPT Actions."
+  },
+  "servers": [
+    {
+      "url": "https://ad-spend-cashflow.vercel.app"
+    }
+  ],
+  "paths": {}
+}

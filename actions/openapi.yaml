@@ -1,0 +1,50 @@
+openapi: 3.1.0
+info:
+  title: Ad Spend Cash Flow Calculator API
+  version: 0.1.0
+  description: Scaffold OpenAPI file for future Custom GPT Actions.
+servers:
+  - url: https://ad-spend-cashflow.vercel.app
+paths:
+  /api/forecast-cash-flow:
+    post:
+      operationId: forecastCashFlow
+      summary: Forecast ecommerce ad spend cash flow
+      responses:
+        "200":
+          description: Scaffold response
+  /api/diagnose-ad-spend-risk:
+    post:
+      operationId: diagnoseAdSpendRisk
+      summary: Diagnose ad spend cash-flow risk
+      responses:
+        "200":
+          description: Scaffold response
+  /api/calculate-safe-ad-spend:
+    post:
+      operationId: calculateSafeAdSpend
+      summary: Estimate safer daily ad spend
+      responses:
+        "200":
+          description: Scaffold response
+  /api/recommend-growth-decision:
+    post:
+      operationId: recommendGrowthDecision
+      summary: Recommend scale, hold, fix, or funding review
+      responses:
+        "200":
+          description: Scaffold response
+  /api/generate-analysis-package:
+    post:
+      operationId: generateAnalysisPackage
+      summary: Generate GPT-ready prompt and JSON payload
+      responses:
+        "200":
+          description: Scaffold response
+  /api/save-analysis-request:
+    post:
+      operationId: saveAnalysisRequest
+      summary: Save optional lead or analysis request
+      responses:
+        "200":
+          description: Scaffold response
