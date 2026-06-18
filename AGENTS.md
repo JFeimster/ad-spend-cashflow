@@ -1,5 +1,6 @@
-**Priority:** High
-**Purpose:** Instructions for AI coding agents working in the repo.
+## `Agents.md`
+- **Priority:** High
+- **Purpose:** Instructions for AI coding agents working in the repo.
 
 Use it to define:
 ```
