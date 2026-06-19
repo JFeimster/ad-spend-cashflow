@@ -1,8 +1,8 @@
 openapi: 3.1.0
 info:
   title: Ad Spend Cash Flow Calculator API
-  version: 1.0.0
-  description: API for ecommerce ad spend cash-flow forecasting, risk diagnosis, safe ad spend planning, analysis packages, and consent-based lead requests.
+  version: 0.1.0
+  description: Scaffold OpenAPI file for future Custom GPT Actions.
 servers:
   - url: https://ad-spend-cashflow.vercel.app
 paths:
@@ -10,289 +10,41 @@ paths:
     post:
       operationId: forecastCashFlow
       summary: Forecast ecommerce ad spend cash flow
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/CashFlowInput"
       responses:
         "200":
-          description: Cash-flow forecast result.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ForecastEnvelope"
-        "400":
-          description: Invalid input.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorEnvelope"
+          description: Scaffold response
   /api/diagnose-ad-spend-risk:
     post:
       operationId: diagnoseAdSpendRisk
       summary: Diagnose ad spend cash-flow risk
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/CashFlowInput"
       responses:
         "200":
-          description: Risk diagnosis result.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/GenericResultEnvelope"
+          description: Scaffold response
   /api/calculate-safe-ad-spend:
     post:
       operationId: calculateSafeAdSpend
-      summary: Calculate safer daily ad spend
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              allOf:
-                - $ref: "#/components/schemas/CashFlowInput"
-                - type: object
-                  properties:
-                    minimum_cash_buffer:
-                      type: number
-                      minimum: 0
+      summary: Estimate safer daily ad spend
       responses:
         "200":
-          description: Safe ad spend result.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/GenericResultEnvelope"
+          description: Scaffold response
   /api/recommend-growth-decision:
     post:
       operationId: recommendGrowthDecision
       summary: Recommend scale, hold, fix, or funding review
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/CashFlowInput"
       responses:
         "200":
-          description: Growth decision result.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/GenericResultEnvelope"
+          description: Scaffold response
   /api/generate-analysis-package:
     post:
       operationId: generateAnalysisPackage
-      summary: Generate GPT-ready analysis package
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/CashFlowInput"
+      summary: Generate GPT-ready prompt and JSON payload
       responses:
         "200":
-          description: Analysis package result.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/GenericResultEnvelope"
+          description: Scaffold response
   /api/save-analysis-request:
     post:
       operationId: saveAnalysisRequest
-      summary: Save consent-based analysis request
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/LeadRequest"
+      summary: Save optional lead or analysis request
       responses:
         "200":
-          description: Lead request accepted or validated.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/GenericResultEnvelope"
-        "400":
-          description: Invalid lead request.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorEnvelope"
-components:
-  schemas:
-    CashFlowInput:
-      type: object
-      additionalProperties: false
-      required:
-        - starting_cash
-        - daily_ad_spend
-        - expected_roas
-        - gross_margin_percent
-        - payout_lag_days
-      properties:
-        starting_cash:
-          type: number
-          minimum: 0
-        daily_ad_spend:
-          type: number
-          minimum: 0
-        expected_roas:
-          type: number
-          minimum: 0
-          description: Expected revenue multiple from ad spend. This is not cash flow.
-        gross_margin_percent:
-          type: number
-          minimum: 0
-          maximum: 100
-        payout_lag_days:
-          type: integer
-          minimum: 0
-          maximum: 30
-        inventory_supplier_payment:
-          type: number
-          minimum: 0
-          default: 0
-        inventory_payment_day:
-          type: integer
-          minimum: 1
-          maximum: 30
-          default: 5
-        refund_adjustment_percent:
-          type: number
-          minimum: 0
-          maximum: 100
-          default: 0
-        forecast_window_days:
-          type: integer
-          minimum: 7
-          maximum: 30
-          default: 14
-        minimum_cash_buffer:
-          type: number
-          minimum: 0
-          default: 0
-    ForecastEnvelope:
-      type: object
-      properties:
-        ok:
-          type: boolean
-        endpoint:
-          type: string
-        inputs:
-          $ref: "#/components/schemas/CashFlowInput"
-        result:
-          $ref: "#/components/schemas/ForecastResult"
-    ForecastResult:
-      type: object
-      properties:
-        forecast_window_days:
-          type: integer
-        starting_cash:
-          type: number
-        lowest_cash_day:
-          type: integer
-        lowest_cash_balance:
-          type: number
-        estimated_cash_gap:
-          type: number
-        recommendation:
-          type: string
-          enum: [scale, hold, fix, funding_review]
-        summary:
-          type: string
-        decision_reason:
-          type: string
-        risk_score:
-          type: number
-        risk_level:
-          type: string
-        risk_notes:
-          type: array
-          items:
-            type: string
-        assumptions:
-          type: array
-          items:
-            type: string
-        next_steps:
-          type: array
-          items:
-            type: string
-        disclaimer:
-          type: string
-        daily_forecast:
-          type: array
-          items:
-            type: object
-            properties:
-              day:
-                type: integer
-              beginning_cash:
-                type: number
-              ad_spend_outflow:
-                type: number
-              payout_inflow:
-                type: number
-              inventory_supplier_outflow:
-                type: number
-              ending_cash_balance:
-                type: number
-              notes:
-                type: array
-                items:
-                  type: string
-    LeadRequest:
-      type: object
-      additionalProperties: true
-      required: [email, consent, calculator_inputs]
-      properties:
-        name:
-          type: string
-        email:
-          type: string
-        store_url:
-          type: string
-        store_type:
-          type: string
-        monthly_revenue_range:
-          type: string
-        notes:
-          type: string
-        consent:
-          type: boolean
-        calculator_inputs:
-          $ref: "#/components/schemas/CashFlowInput"
-        source:
-          type: string
-    GenericResultEnvelope:
-      type: object
-      properties:
-        ok:
-          type: boolean
-        endpoint:
-          type: string
-        inputs:
-          type: object
-        result:
-          type: object
-    ErrorEnvelope:
-      type: object
-      properties:
-        ok:
-          type: boolean
-        endpoint:
-          type: string
-        error:
-          type: string
-        details:
-          type: array
-          items:
-            type: string
+          description: Scaffold response

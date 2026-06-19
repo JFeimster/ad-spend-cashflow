@@ -1,97 +1,58 @@
 # Quick Launch — Serverless API, GPT Action, Lead Capture
 
+## Launch Order
+
+1. Deploy deterministic calculator API.
+2. Connect frontend form to /api/forecast-cash-flow.
+3. Add Custom GPT Action schema.
+4. Add lead capture webhook.
+5. Test production endpoints.
+
 ## Local Setup
 
-```bash
 npm install
 npm test
 npm run dev
-```
 
 ## Environment Variables
 
-```env
 ALLOWED_ORIGIN=https://ad-spend-cashflow.vercel.app
 ACTION_API_KEY=
 REQUIRE_ACTION_AUTH=false
 LEAD_WEBHOOK_URL=
 LEAD_WEBHOOK_SECRET=
 NODE_ENV=development
-```
 
-## Test Locally
+## Test Forecast API Locally
 
-```bash
-curl -i -X POST http://localhost:3000/api/forecast-cash-flow \
-  -H "Content-Type: application/json" \
-  -d @actions/examples/forecast-cash-flow.request.json
-```
+curl.exe -i -X POST http://localhost:3000/api/forecast-cash-flow -H "Content-Type: application/json" -d "@actions/examples/forecast-cash-flow.request.json"
 
-```bash
-curl -i -X POST http://localhost:3000/api/generate-analysis-package \
-  -H "Content-Type: application/json" \
-  -d @actions/examples/generate-analysis-package.request.json
-```
+## Test Lead Capture Locally
 
-```bash
-curl -i -X POST http://localhost:3000/api/save-analysis-request \
-  -H "Content-Type: application/json" \
-  -d @actions/examples/save-analysis-request.request.json
-```
+curl.exe -i -X POST http://localhost:3000/api/save-analysis-request -H "Content-Type: application/json" -d "@actions/examples/save-analysis-request.request.json"
 
-## Production Tests
+## Vercel Deployment
 
-Replace the domain if your Vercel URL changes.
+git add .
+git commit -m "Launch API, GPT Action schema, and lead capture"
+git push -u origin integration-launch-api-actions-leads
 
-```bash
-curl -i -X POST https://ad-spend-cashflow.vercel.app/api/forecast-cash-flow \
-  -H "Content-Type: application/json" \
-  -d @actions/examples/forecast-cash-flow.request.json
-```
+## Custom GPT Action Setup
 
-```bash
-curl -i -X POST https://ad-spend-cashflow.vercel.app/api/save-analysis-request \
-  -H "Content-Type: application/json" \
-  -d @actions/examples/save-analysis-request.request.json
-```
+1. Open the Custom GPT builder.
+2. Go to Actions.
+3. Import or paste actions/openapi.yaml.
+4. Use server URL: https://ad-spend-cashflow.vercel.app
+5. Fast launch authentication: None.
+6. Test forecastCashFlow.
+7. Test generateAnalysisPackage.
+8. Only test saveAnalysisRequest with explicit consent.
 
-## GPT Action Builder Inputs
+## Guardrails
 
-Name:
-
-```txt
-Ad Spend Cash Flow Calculator API
-```
-
-Description:
-
-```txt
-Calls the Ad Spend Cash Flow Calculator API to forecast ecommerce ad spend cash flow, payout lag, cash gaps, risk, and planning guidance.
-```
-
-Server URL:
-
-```txt
-https://ad-spend-cashflow.vercel.app
-```
-
-Authentication for fast launch:
-
-```txt
-None
-```
-
-Test operation first:
-
-```txt
-forecastCashFlow
-```
-
-Then test:
-
-```txt
-generateAnalysisPackage
-saveAnalysisRequest
-```
-
-Only use `saveAnalysisRequest` when the user gives email and explicit consent.
+- Do not treat ROAS as cash flow.
+- Do not guarantee profitability.
+- Do not guarantee funding approval.
+- Do not recommend borrowing as professional advice.
+- Funding is only an option to review.
+- Keep all secrets server-side.
