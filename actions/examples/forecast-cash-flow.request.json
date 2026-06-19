@@ -1,0 +1,11 @@
+{
+  "starting_cash": 25000,
+  "daily_ad_spend": 2500,
+  "expected_roas": 2.1,
+  "gross_margin_percent": 55,
+  "payout_lag_days": 5,
+  "inventory_supplier_payment": 18000,
+  "inventory_payment_day": 6,
+  "refund_adjustment_percent": 4,
+  "forecast_window_days": 14
+}
