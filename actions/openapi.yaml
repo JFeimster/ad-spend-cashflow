@@ -1,50 +1,314 @@
 openapi: 3.1.0
+
 info:
   title: Ad Spend Cash Flow Calculator API
-  version: 0.1.0
-  description: Scaffold OpenAPI file for future Custom GPT Actions.
+  version: 1.0.0
+  description: >
+    Forecast ecommerce ad spend cash flow, payout lag, cash gaps, safe spend,
+    growth decisions, and optional lead capture. Educational planning only.
+
 servers:
   - url: https://ad-spend-cashflow.vercel.app
+
 paths:
   /api/forecast-cash-flow:
     post:
       operationId: forecastCashFlow
       summary: Forecast ecommerce ad spend cash flow
+      description: >
+        Creates a cash-flow forecast from explicit user inputs. Always pass the
+        user's actual numbers. Do not call this operation with an empty body.
+      x-openai-isConsequential: false
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ForecastInputs"
       responses:
         "200":
-          description: Scaffold response
+          description: Forecast result
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ForecastResponse"
+
   /api/diagnose-ad-spend-risk:
     post:
       operationId: diagnoseAdSpendRisk
       summary: Diagnose ad spend cash-flow risk
+      description: >
+        Diagnoses cash-flow risk from ad spend, payout lag, margin, inventory
+        timing, supplier payments, and refund drag.
+      x-openai-isConsequential: false
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ForecastInputs"
       responses:
         "200":
-          description: Scaffold response
+          description: Risk diagnosis result
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GenericActionResponse"
+
   /api/calculate-safe-ad-spend:
     post:
       operationId: calculateSafeAdSpend
-      summary: Estimate safer daily ad spend
+      summary: Calculate safe daily ad spend
+      description: >
+        Calculates a safe daily ad spend estimate based on cash, payout timing,
+        inventory obligations, refunds, and margin assumptions.
+      x-openai-isConsequential: false
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ForecastInputs"
       responses:
         "200":
-          description: Scaffold response
+          description: Safe ad spend result
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GenericActionResponse"
+
   /api/recommend-growth-decision:
     post:
       operationId: recommendGrowthDecision
-      summary: Recommend scale, hold, fix, or funding review
+      summary: Recommend scale, hold, fix, or funding-review decision
+      description: >
+        Recommends whether to scale, hold, fix unit economics, or review working
+        capital based on the submitted cash-flow scenario.
+      x-openai-isConsequential: false
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ForecastInputs"
       responses:
         "200":
-          description: Scaffold response
+          description: Growth decision result
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GenericActionResponse"
+
   /api/generate-analysis-package:
     post:
       operationId: generateAnalysisPackage
-      summary: Generate GPT-ready prompt and JSON payload
+      summary: Generate GPT-ready analysis package
+      description: >
+        Generates a fuller analysis package, including forecast result,
+        recommended summary, and structured output for GPT reporting.
+      x-openai-isConsequential: false
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ForecastInputs"
       responses:
         "200":
-          description: Scaffold response
+          description: Analysis package result
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GenericActionResponse"
+
   /api/save-analysis-request:
     post:
       operationId: saveAnalysisRequest
       summary: Save optional lead or analysis request
+      description: >
+        Saves an optional lead or analysis request. Use only after the user
+        explicitly provides contact details and consent.
+      x-openai-isConsequential: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LeadCaptureRequest"
       responses:
         "200":
-          description: Scaffold response
+          description: Lead or analysis request saved
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GenericActionResponse"
+
+components:
+  schemas:
+    ForecastInputs:
+      type: object
+      additionalProperties: false
+      required:
+        - starting_cash
+        - daily_ad_spend
+        - expected_roas
+        - gross_margin_percent
+        - payout_lag_days
+        - refund_adjustment_percent
+        - forecast_window_days
+      properties:
+        starting_cash:
+          type: number
+          description: Current cash available before forecasted activity.
+          example: 25000
+        daily_ad_spend:
+          type: number
+          description: Planned daily ad spend.
+          example: 2500
+        expected_roas:
+          type: number
+          description: Expected ROAS as a revenue multiple, such as 2.1 for 2.1x.
+          example: 2.1
+        gross_margin_percent:
+          type: number
+          description: Gross margin percentage before ad spend and cash timing effects.
+          example: 55
+        payout_lag_days:
+          type: integer
+          description: Days between sales activity and usable cash payout.
+          example: 5
+        inventory_supplier_payment:
+          type: number
+          description: Inventory, supplier, freight, or other major payment due during the forecast window. Use 0 if none.
+          default: 0
+          example: 18000
+        inventory_payment_day:
+          type: integer
+          description: Forecast day when inventory or supplier payment hits cash. Use 0 if none.
+          default: 0
+          example: 6
+        refund_adjustment_percent:
+          type: number
+          description: Percentage of gross sales reserved for refunds, chargebacks, or related drag.
+          example: 4
+        forecast_window_days:
+          type: integer
+          description: Number of forecast days.
+          default: 14
+          example: 14
+        minimum_cash_buffer:
+          type: number
+          description: Minimum cash floor to preserve. Use 0 unless the user provides a buffer.
+          default: 0
+          example: 0
+
+    ForecastResponse:
+      type: object
+      properties:
+        ok:
+          type: boolean
+        endpoint:
+          type: string
+        inputs:
+          $ref: "#/components/schemas/ForecastInputs"
+        result:
+          type: object
+          properties:
+            forecast_window_days:
+              type: integer
+            starting_cash:
+              type: number
+            lowest_cash_day:
+              type: integer
+            lowest_cash_balance:
+              type: number
+            estimated_cash_gap:
+              type: number
+            daily_forecast:
+              type: array
+              items:
+                type: object
+                properties:
+                  day:
+                    type: integer
+                  beginning_cash:
+                    type: number
+                  ad_spend_outflow:
+                    type: number
+                  payout_inflow:
+                    type: number
+                  inventory_supplier_outflow:
+                    type: number
+                  ending_cash_balance:
+                    type: number
+                  notes:
+                    type: array
+                    items:
+                      type: string
+            recommendation:
+              type: string
+            summary:
+              type: string
+            decision_reason:
+              type: string
+            risk_score:
+              type: number
+            risk_level:
+              type: string
+            risk_notes:
+              type: array
+              items:
+                type: string
+            assumptions:
+              type: array
+              items:
+                type: string
+            next_steps:
+              type: array
+              items:
+                type: string
+            disclaimer:
+              type: string
+
+    LeadCaptureRequest:
+      type: object
+      additionalProperties: false
+      required:
+        - email
+        - consent
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+        store_url:
+          type: string
+        store_type:
+          type: string
+        monthly_revenue_range:
+          type: string
+        notes:
+          type: string
+        consent:
+          type: boolean
+          description: Must be true before saving or submitting the request.
+        source:
+          type: string
+          default: custom-gpt-action
+        calculator_inputs:
+          $ref: "#/components/schemas/ForecastInputs"
+
+    GenericActionResponse:
+      type: object
+      properties:
+        ok:
+          type: boolean
+        endpoint:
+          type: string
+        inputs:
+          type: object
+        result:
+          type: object
+        message:
+          type: string
