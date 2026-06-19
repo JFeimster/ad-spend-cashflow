@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Request Cash Flow Analysis | Ad Spend Cash Flow Calculator</title>
+  <meta name="description" content="Submit ecommerce ad spend assumptions and request a cash-flow analysis follow-up." />
+  <link rel="stylesheet" href="styles.css" />
+  <script defer src="script.js"></script>
+</head>
+<body>
+  <header class="site-header" data-header>
+    <div class="container nav-wrap">
+      <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">$</span><span class="brand-text"><strong>Ad Spend Cash Flow</strong><small>Calculator GPT</small></span></a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav"><span class="sr-only">Toggle navigation</span><span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span></button>
+      <nav id="primary-nav" class="primary-nav" aria-label="Primary navigation"><a href="index.html#calculator">Calculator</a><a href="index.html#use-cases">Use cases</a><a href="index.html#how-it-works">How it works</a><a href="index.html#faq">FAQ</a><a class="nav-cta" href="https://chatgpt.com/g/g-6a3359a8328c8191acc5cba7968a1639-ad-spend-cash-flow-calculator" target="_blank" rel="noopener">Run the GPT</a></nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="section hero"><div class="container hero-grid"><div class="hero-copy"><p class="eyebrow">Cash-flow analysis request</p><h1>Send the numbers. Catch the cash gap.</h1><p class="hero-subhead">Submit your ad spend assumptions and request a follow-up analysis. Educational planning only, not professional advice.</p><div class="hero-actions"><a class="btn btn-secondary" href="index.html#calculator">Back to calculator</a><a class="btn btn-primary" href="https://tally.so/r/w4R2Ad" target="_blank" rel="noopener">Compare funding options</a></div></div><aside class="results-card"><p class="eyebrow">Before you submit</p><h3>No magic. No guarantee goblin.</h3><p class="result-copy">The model checks payout lag, margin, ad spend, supplier timing, refunds, and cash trough risk. Funding is only framed as an option to review.</p></aside></div></section>
+
+    <section class="section" id="lead"><div class="container calculator-grid">
+      <form class="calc-card" id="cashflow-form" aria-describedby="calc-help">
+        <p class="eyebrow">Calculator inputs</p><h2>Forecast assumptions</h2><p id="calc-help" class="form-help">These numbers will be attached to your analysis request.</p>
+        <label>Starting cash<span class="input-prefix">$</span><input type="number" id="startingCash" value="25000" min="0" step="500" inputmode="decimal" /></label>
+        <label>Daily ad spend<span class="input-prefix">$</span><input type="number" id="dailyAdSpend" value="2500" min="0" step="100" inputmode="decimal" /></label>
+        <label>Expected ROAS / revenue multiple<input type="number" id="roas" value="2.1" min="0" step="0.1" inputmode="decimal" /></label>
+        <label>Gross margin after COGS<span class="input-suffix">%</span><input type="number" id="grossMargin" value="55" min="0" max="100" step="1" inputmode="decimal" /></label>
+        <label>Payout lag<span class="input-suffix">days</span><input type="number" id="payoutLag" value="5" min="0" max="30" step="1" inputmode="numeric" /></label>
+        <label>Upcoming inventory / supplier payment<span class="input-prefix">$</span><input type="number" id="inventoryPayment" value="18000" min="0" step="500" inputmode="decimal" /></label>
+        <label>Inventory payment day<span class="input-suffix">day</span><input type="number" id="inventoryDay" value="6" min="1" max="30" step="1" inputmode="numeric" /></label>
+        <label>Refund / adjustment drag<span class="input-suffix">%</span><input type="number" id="refundRate" value="4" min="0" max="100" step="1" inputmode="decimal" /></label>
+        <button class="btn btn-primary calc-submit" type="submit">Update forecast preview</button>
+      </form>
+      <aside class="results-card" aria-live="polite" aria-atomic="true"><p class="eyebrow">Estimated 14-day signal</p><h3 id="resultTitle">Forecast loading...</h3><div class="result-metrics"><div><span>Lowest projected cash</span><strong id="lowestCash">$0</strong></div><div><span>Lowest cash day</span><strong id="lowestDay">Day 0</strong></div><div><span>Estimated contribution inflow</span><strong id="paidRevenue">$0</strong></div><div><span>Projected ending cash</span><strong id="endingCash">$0</strong></div></div><div class="forecast-bars" id="forecastBars" aria-label="14-day cash projection bars"></div><p id="resultCopy" class="result-copy">Your forecast preview will appear here.</p></aside>
+    </div></section>
+
+    <section class="section"><div class="container"><form class="calc-card" id="lead-capture-form">
+      <p class="eyebrow">Request follow-up</p><h2>Submit analysis request</h2>
+      <label>Name<input type="text" id="leadName" name="name" autocomplete="name" /></label>
+      <label>Email<input type="email" id="leadEmail" name="email" required autocomplete="email" /></label>
+      <label>Store URL<input type="text" id="leadStoreUrl" name="store_url" placeholder="yourstore.com" /></label>
+      <label>Store type<input type="text" id="leadStoreType" name="store_type" placeholder="Shopify, Amazon, DTC, marketplace..." /></label>
+      <label>Monthly revenue range<input type="text" id="leadMonthlyRevenueRange" name="monthly_revenue_range" placeholder="$10k-$25k, $25k-$50k, etc." /></label>
+      <label>Notes<textarea id="leadNotes" name="notes" rows="4" placeholder="What are you trying to figure out?"></textarea></label>
+      <label class="sr-only" aria-hidden="true">Website<input type="text" id="leadWebsite" name="website" tabindex="-1" autocomplete="off" /></label>
+      <label><input type="checkbox" id="leadConsent" required /> I consent to submit this analysis request and be contacted about my cash-flow assumptions or funding options.</label>
+      <button class="btn btn-primary calc-submit" type="submit">Submit analysis request</button>
+      <p id="leadStatus" class="form-help" role="status">Your request has not been submitted yet.</p>
+      <p class="fine-print">Educational planning only. No funding approval, profitability, repayment, or ad performance guarantees.</p>
+    </form></div></section>
+  </main>
+</body>
+</html>
